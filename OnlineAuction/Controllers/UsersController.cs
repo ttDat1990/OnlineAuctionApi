@@ -52,7 +52,7 @@ public class UsersController : Controller
     }
 
     [HttpGet("{username}")]
-    public async Task<IActionResult> GetUserByEmail(string username)
+    public async Task<IActionResult> GetUserByUsername(string username)
     {
         var user = await _userService.GetUserByUsernameAsync(username);
         if (user == null)

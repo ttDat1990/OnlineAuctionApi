@@ -31,11 +31,12 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddControllers();
 builder.Services.AddCors();
 
-//builder.Services.AddScoped<AccountService, AccountServiceImpl>();
 builder.Services.AddScoped<IEmailService, EmailServiceImpl>();
 builder.Services.AddScoped<IJWTService, JWTServiceImpl>();
 builder.Services.AddScoped<IUserService, UserServiceImpl>();
-//builder.Services.AddScoped<TransactionService, TransactionServiceImpl>();
+builder.Services.AddScoped<ICategoryService, CategoryServiceImpl>();
+builder.Services.AddScoped<IItemService, ItemServiceImpl>();
+
 
 string connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"].ToString();
 builder.Services.AddDbContext<DatabaseContext>(option => option.UseLazyLoadingProxies().UseSqlServer(connectionString));

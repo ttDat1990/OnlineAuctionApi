@@ -11,10 +11,6 @@ public partial class Item
 
     public string? ItemDescription { get; set; }
 
-    public string? ImageUrl { get; set; }
-
-    public string? DocumentUrl { get; set; }
-
     public decimal MinimumBid { get; set; }
 
     public decimal? CurrentBid { get; set; }
@@ -34,6 +30,10 @@ public partial class Item
     public virtual ICollection<Bid> Bids { get; set; } = new List<Bid>();
 
     public virtual Category? Category { get; set; }
+
+    public virtual ICollection<Document> Documents { get; set; } = new List<Document>();
+
+    public virtual ICollection<Image> Images { get; set; } = new List<Image>();
 
     public virtual ICollection<Rating> Ratings { get; set; } = new List<Rating>();
 

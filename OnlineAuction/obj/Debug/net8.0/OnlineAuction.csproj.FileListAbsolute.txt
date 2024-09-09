@@ -135,3 +135,5 @@ D:\Aptech\HK3\OnlineAuctionProject\OnlineAuction\OnlineAuction\obj\Debug\net8.0\
 D:\Aptech\HK3\OnlineAuctionProject\OnlineAuction\OnlineAuction\obj\Debug\net8.0\OnlineAuction.pdb
 D:\Aptech\HK3\OnlineAuctionProject\OnlineAuction\OnlineAuction\obj\Debug\net8.0\OnlineAuction.genruntimeconfig.cache
 D:\Aptech\HK3\OnlineAuctionProject\OnlineAuction\OnlineAuction\obj\Debug\net8.0\ref\OnlineAuction.dll
+D:\Aptech\HK3\OnlineAuctionProject\OnlineAuction\OnlineAuction\obj\Debug\net8.0\OnlineAuction.sourcelink.json
+D:\Aptech\HK3\OnlineAuctionProject\OnlineAuction\OnlineAuction\bin\Debug\net8.0\OnlineAuction.staticwebassets.runtime.json
