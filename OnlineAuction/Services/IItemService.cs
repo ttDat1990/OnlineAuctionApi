@@ -4,6 +4,12 @@ namespace OnlineAuction.Services;
 
 public interface IItemService
 {
-    public ItemDto CreateItem(CreateItemWithFilesDto createItemWithFilesDto, int sellerId, List<string> imagePaths, List<string> documentPaths);
+    public ItemDto? GetItemById(int id);
+    public bool CreateItem(CreateItemWithFilesDto createItemWithFilesDto, int sellerId, List<string> imagePaths, List<string> documentPaths);
+    public bool UpdateItem(int id, UpdateItemWithFilesDto updateItemWithFilesDto, int sellerId, List<string> imagePaths, List<string> documentPaths);
+    public bool DeleteItem(int itemId);
+    public List<ItemDto> GetItemsByCategory(int categoryId);
+    public List<ItemDto> SearchItems(string query);
+
 
 }

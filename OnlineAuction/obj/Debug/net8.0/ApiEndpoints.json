@@ -1,5 +1,37 @@
 [
   {
+    "ContainingType": "OnlineAuction.Controllers.BidsController",
+    "Method": "PlaceBid",
+    "RelativePath": "api/Bids",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "placeBidDto",
+        "Type": "OnlineAuction.Dtos.PlaceBidDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineAuction.Controllers.BidsController",
+    "Method": "GetBidHistory",
+    "RelativePath": "api/Bids/{itemId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "itemId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "OnlineAuction.Controllers.CategoriesController",
     "Method": "CreateCategory",
     "RelativePath": "api/Categories",
@@ -63,6 +95,38 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "OnlineAuction.Controllers.CategoriesController",
+    "Method": "GetItemsByCategory",
+    "RelativePath": "api/Categories/{id}/items",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineAuction.Controllers.ItemsController",
+    "Method": "GetItemById",
+    "RelativePath": "api/Items/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "OnlineAuction.Controllers.ItemsController",
     "Method": "Create",
     "RelativePath": "api/Items/create",
@@ -103,6 +167,69 @@
       {
         "Name": "CategoryId",
         "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Images",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile[]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Documents",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile[]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineAuction.Controllers.ItemsController",
+    "Method": "Delete",
+    "RelativePath": "api/Items/delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineAuction.Controllers.ItemsController",
+    "Method": "SearchItems",
+    "RelativePath": "api/Items/search",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "query",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineAuction.Controllers.ItemsController",
+    "Method": "Update",
+    "RelativePath": "api/Items/update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "BidIncrement",
+        "Type": "System.Decimal",
         "IsRequired": false
       },
       {

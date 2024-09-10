@@ -12,6 +12,13 @@ public class CreateItemWithFilesDto
     public IFormFile[]? Documents { get; set; }
 }
 
+public class UpdateItemWithFilesDto
+{
+    public decimal BidIncrement { get; set; }
+    public IFormFile[]? Images { get; set; }
+    public IFormFile[]? Documents { get; set; }
+}
+
 public class ItemDto
 {
     public int ItemId { get; set; }

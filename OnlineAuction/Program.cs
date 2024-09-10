@@ -36,6 +36,8 @@ builder.Services.AddScoped<IJWTService, JWTServiceImpl>();
 builder.Services.AddScoped<IUserService, UserServiceImpl>();
 builder.Services.AddScoped<ICategoryService, CategoryServiceImpl>();
 builder.Services.AddScoped<IItemService, ItemServiceImpl>();
+builder.Services.AddScoped<IFileService, FileServiceImpl>();
+builder.Services.AddScoped<IBidService, BidServiceImpl>();
 
 
 string connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"].ToString();

@@ -9,10 +9,12 @@ namespace OnlineAuction.Controllers;
 public class CategoriesController : Controller
 {
     private readonly ICategoryService _categoryService;
+    private readonly IItemService _itemService;
 
-    public CategoriesController(ICategoryService categoryService)
+    public CategoriesController(ICategoryService categoryService, IItemService itemService)
     {
         _categoryService = categoryService;
+        _itemService = itemService;
     }
 
     [HttpPost]
@@ -69,5 +71,18 @@ public class CategoriesController : Controller
         }
 
         return Ok(new { Result = "success" });
+    }
+
+    [HttpGet("{id}/items")]
+    public IActionResult GetItemsByCategory(int id)
+    {
+        var items = _itemService.GetItemsByCategory(id);
+
+        if (items == null || items.Count == 0)
+        {
+            return NotFound(new { Message = "There are no items in this category." });
+        }
+
+        return Ok(items);
     }
 }
