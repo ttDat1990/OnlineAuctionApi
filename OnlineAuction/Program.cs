@@ -38,7 +38,13 @@ builder.Services.AddScoped<ICategoryService, CategoryServiceImpl>();
 builder.Services.AddScoped<IItemService, ItemServiceImpl>();
 builder.Services.AddScoped<IFileService, FileServiceImpl>();
 builder.Services.AddScoped<IBidService, BidServiceImpl>();
+builder.Services.AddScoped<INotificationService, NotificationServiceImpl>();
+builder.Services.AddScoped<IRatingService, RatingService>();
 
+builder.Services.AddHostedService<AuctionStatusUpdateService>();
+
+// Cau hinh logging
+builder.Logging.AddConsole();
 
 string connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"].ToString();
 builder.Services.AddDbContext<DatabaseContext>(option => option.UseLazyLoadingProxies().UseSqlServer(connectionString));

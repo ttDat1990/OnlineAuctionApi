@@ -9,10 +9,14 @@ namespace OnlineAuction.Controllers;
 public class UsersController : Controller
 {
     private readonly IUserService _userService;
+    private readonly INotificationService _notificationService;
+    private readonly IRatingService _ratingService;
 
-    public UsersController(IUserService userService)
+    public UsersController(IUserService userService, INotificationService notificationService, IRatingService ratingService)
     {
         _userService = userService;
+        _notificationService = notificationService;
+        _ratingService = ratingService;
     }
 
     [HttpPost("register")]
@@ -74,5 +78,26 @@ public class UsersController : Controller
         }
 
         return Ok(new { Result = "success" });
+    }
+
+    [HttpGet]
+    [Route("{userId}/notifications")]
+    public IActionResult GetUserNotifications(int userId)
+    {
+        var notifications = _notificationService.GetUserNotifications(userId);
+        if (notifications == null || notifications.Count == 0)
+        {
+            return NotFound(new { Message = "No notifications found for this user." });
+        }
+
+        return Ok(notifications);
+    }
+
+    // GET /api/users/{userId}/ratings
+    [HttpGet("{userId}/ratings")]
+    public async Task<IActionResult> GetUserRatings(int userId)
+    {
+        var userRatings = await _ratingService.GetUserRatings(userId);
+        return Ok(userRatings);
     }
 }

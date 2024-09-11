@@ -10,7 +10,10 @@ public class MappingProfile : Profile
         CreateMap<Category, CategoryDto>().ReverseMap();
         CreateMap<CreateItemWithFilesDto, Item>()
             .ForMember(dest => dest.CurrentBid, opt => opt.MapFrom(src => src.MinimumBid))
-            .ForMember(dest => dest.BidStatus, opt => opt.Ignore()); // Bỏ qua BidStatus vì nó có giá trị cố định
+            .ForMember(dest => dest.BidStatus, opt => opt.Ignore())
+            .ForMember(dest => dest.Documents, opt => opt.Ignore())
+            .ForMember(dest => dest.Images, opt => opt.Ignore());
+
         CreateMap<Item, ItemDto>()
             .ForMember(dest => dest.Images, opt => opt.MapFrom<ItemToItemDtoResolver>())
             .ForMember(dest => dest.Documents, opt => opt.MapFrom<ItemToItemDtoDocumentResolver>());
