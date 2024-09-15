@@ -42,6 +42,8 @@ builder.Services.AddScoped<INotificationService, NotificationServiceImpl>();
 builder.Services.AddScoped<IRatingService, RatingService>();
 
 builder.Services.AddHostedService<AuctionStatusUpdateService>();
+builder.Services.AddSingleton<AuctionStatusUpdateService>();
+
 
 // Cau hinh logging
 builder.Logging.AddConsole();

@@ -16,7 +16,8 @@ public class MappingProfile : Profile
 
         CreateMap<Item, ItemDto>()
             .ForMember(dest => dest.Images, opt => opt.MapFrom<ItemToItemDtoResolver>())
-            .ForMember(dest => dest.Documents, opt => opt.MapFrom<ItemToItemDtoDocumentResolver>());
+            .ForMember(dest => dest.Documents, opt => opt.MapFrom<ItemToItemDtoDocumentResolver>())
+            .ForMember(dest => dest.SellerUsername, opt => opt.MapFrom(src => src.Seller.Username));
         CreateMap<Bid, BidDto>()
             .ForMember(dest => dest.BidderUsername, opt => opt.MapFrom(src => src.Bidder.Username));
     }

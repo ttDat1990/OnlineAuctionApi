@@ -121,4 +121,9 @@ public class AuctionStatusUpdateService : BackgroundService
             }
         }
     }
+
+    public async Task TriggerUpdateBidStatuses()
+    {
+        await UpdateBidStatuses();
+    }
 }

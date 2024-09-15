@@ -13,12 +13,14 @@ public class ItemsController : Controller
     private readonly IItemService _itemService;
     private readonly IWebHostEnvironment _webHostEnvironment;
     private readonly IFileService _fileService;
+    private readonly AuctionStatusUpdateService _statusUpdateService;
 
-    public ItemsController(IItemService itemService, IWebHostEnvironment webHostEnvironment, IFileService fileService)
+    public ItemsController(IItemService itemService, IWebHostEnvironment webHostEnvironment, IFileService fileService, AuctionStatusUpdateService statusUpdateService)
     {
         _itemService = itemService;
         _webHostEnvironment = webHostEnvironment;
         _fileService = fileService;
+        _statusUpdateService = statusUpdateService;
     }
 
     [HttpGet("{id}")]
@@ -64,6 +66,8 @@ public class ItemsController : Controller
 
             if (isCreated)
             {
+                // Gọi UpdateBidStatuses sau khi thêm item thành công
+                await _statusUpdateService.TriggerUpdateBidStatuses();
                 return Ok(new { Message = "Create successfully." });
             }
             else
@@ -150,17 +154,37 @@ public class ItemsController : Controller
     }
 
     [HttpGet("search")]
-    public IActionResult SearchItems([FromQuery] string query)
+    public IActionResult SearchItems(
+    [FromQuery] string query,
+    [FromQuery] int? categoryId,
+    [FromQuery] int? sellerId,
+    [FromQuery] string? bidStatus,
+    [FromQuery] DateTime? bidStartDate,
+    [FromQuery] DateTime? bidEndDate)
     {
-        var items = _itemService.SearchItems(query);
+        var items = _itemService.SearchItems(query, categoryId, sellerId, bidStatus, bidStartDate, bidEndDate);
 
         if (items == null || items.Count == 0)
         {
-            return NotFound(new { Message = "No items were found matching your keyword." });
+            return NotFound(new { Message = "No items were found matching the search criteria." });
         }
 
         return Ok(items);
     }
+
+    [HttpGet]
+    public IActionResult GetAllItems()
+    {
+        var items = _itemService.GetAllItems();
+
+        if (items == null || items.Count == 0)
+        {
+            return NotFound(new { Message = "No items found." });
+        }
+
+        return Ok(items);
+    }
+
 
 
 }

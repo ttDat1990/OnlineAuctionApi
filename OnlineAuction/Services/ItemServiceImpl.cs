@@ -179,21 +179,74 @@ public class ItemServiceImpl : IItemService
         return itemDtos;
     }
 
-    public List<ItemDto> SearchItems(string query)
+    public List<ItemDto> SearchItems(string query, int? categoryId = null, int? sellerId = null, string bidStatus = null, DateTime? bidStartDate = null, DateTime? bidEndDate = null)
     {
         // Chuyển đổi từ khóa tìm kiếm thành chữ thường
-        var lowerQuery = query.ToLower();
+        var lowerQuery = query?.ToLower();
 
-        // Tìm kiếm sản phẩm dựa trên từ khóa trong tiêu đề và mô tả
-        var items = _dbContext.Items
-            .Where(i => i.ItemTitle.ToLower().Contains(lowerQuery) ||
-                        i.ItemDescription.ToLower().Contains(lowerQuery))
+        // Bắt đầu truy vấn từ bảng Items
+        var itemsQuery = _dbContext.Items
             .Include(i => i.Images)     // Bao gồm các hình ảnh liên quan
             .Include(i => i.Documents)  // Bao gồm các tài liệu liên quan
+            .AsQueryable();
+
+        // Nếu có từ khóa tìm kiếm, lọc theo tiêu đề hoặc mô tả sản phẩm
+        if (!string.IsNullOrEmpty(lowerQuery))
+        {
+            itemsQuery = itemsQuery.Where(i => i.ItemTitle.ToLower().Contains(lowerQuery) ||
+                                               i.ItemDescription.ToLower().Contains(lowerQuery));
+        }
+
+        // Lọc theo CategoryId nếu có
+        if (categoryId.HasValue)
+        {
+            itemsQuery = itemsQuery.Where(i => i.CategoryId == categoryId.Value);
+        }
+
+        // Lọc theo SellerId nếu có
+        if (sellerId.HasValue)
+        {
+            itemsQuery = itemsQuery.Where(i => i.SellerId == sellerId.Value);
+        }
+
+        // Lọc theo BidStatus nếu có
+        if (!string.IsNullOrEmpty(bidStatus))
+        {
+            itemsQuery = itemsQuery.Where(i => i.BidStatus == bidStatus);
+        }
+
+        // Lọc theo BidStartDate nếu có
+        if (bidStartDate.HasValue)
+        {
+            itemsQuery = itemsQuery.Where(i => i.BidStartDate >= bidStartDate.Value);
+        }
+
+        // Lọc theo BidEndDate nếu có
+        if (bidEndDate.HasValue)
+        {
+            itemsQuery = itemsQuery.Where(i => i.BidEndDate <= bidEndDate.Value);
+        }
+
+        // Thực hiện truy vấn
+        var items = itemsQuery.ToList();
+
+        // Map các đối tượng Item sang ItemDto, bao gồm hình ảnh và tài liệu
+        var itemDtos = _mapper.Map<List<ItemDto>>(items);
+
+        return itemDtos;
+    }
+
+    public List<ItemDto> GetAllItems()
+    {
+        var items = _dbContext.Items
+            .Include(i => i.Images)     // Include related images
+            .Include(i => i.Documents)  // Include related documents
             .ToList();
 
         var itemDtos = _mapper.Map<List<ItemDto>>(items);
         return itemDtos;
     }
+
+
 
 }
