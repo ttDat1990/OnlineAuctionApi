@@ -155,7 +155,7 @@ public class ItemsController : Controller
 
     [HttpGet("search")]
     public IActionResult SearchItems(
-    [FromQuery] string query,
+    [FromQuery] string? query,
     [FromQuery] int? categoryId,
     [FromQuery] int? sellerId,
     [FromQuery] string? bidStatus,

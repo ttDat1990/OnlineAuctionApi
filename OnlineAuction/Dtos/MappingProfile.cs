@@ -7,7 +7,6 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         CreateMap<User, UserDto>().ReverseMap();
-        CreateMap<Category, CategoryDto>().ReverseMap();
         CreateMap<CreateItemWithFilesDto, Item>()
             .ForMember(dest => dest.CurrentBid, opt => opt.MapFrom(src => src.MinimumBid))
             .ForMember(dest => dest.BidStatus, opt => opt.Ignore())

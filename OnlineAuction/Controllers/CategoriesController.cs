@@ -23,8 +23,8 @@ public class CategoriesController : Controller
     {
         try
         {
-            var createdCategory = await _categoryService.CreateCategoryAsync(createCategoryDto);
-            return Ok(createdCategory);
+            await _categoryService.CreateCategoryAsync(createCategoryDto);
+            return Ok(new { Result = "success" });
         }
         catch (InvalidOperationException ex)
         {
@@ -45,13 +45,9 @@ public class CategoriesController : Controller
     {
         try
         {
-            var updatedCategory = await _categoryService.UpdateCategoryAsync(id, updateCategoryDto);
-            if (updatedCategory == null)
-            {
-                return NotFound("Category is not exists.");
-            }
+            await _categoryService.UpdateCategoryAsync(id, updateCategoryDto);
 
-            return Ok(updatedCategory);
+            return Ok(new { Result = "success" });
         }
         catch (InvalidOperationException ex)
         {

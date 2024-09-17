@@ -10,12 +10,14 @@ public class ItemServiceImpl : IItemService
     private readonly DatabaseContext _dbContext;
     private readonly IMapper _mapper;
     private readonly IConfiguration _configuration;
+    private readonly IServiceScopeFactory _serviceScopeFactory;
 
-    public ItemServiceImpl(DatabaseContext dbContext, IMapper mapper, IConfiguration configuration)
+    public ItemServiceImpl(DatabaseContext dbContext, IMapper mapper, IConfiguration configuration, IServiceScopeFactory serviceScopeFactory)
     {
         _dbContext = dbContext;
         _mapper = mapper;
         _configuration = configuration;
+        _serviceScopeFactory = serviceScopeFactory;
     }
     public ItemDto? GetItemById(int id)
     {
@@ -36,19 +38,6 @@ public class ItemServiceImpl : IItemService
 
     public bool CreateItem(CreateItemWithFilesDto createItemWithFilesDto, int sellerId, List<string> imagePaths, List<string> documentPaths)
     {
-        //var item = new Item
-        //{
-        //    ItemTitle = createItemWithFilesDto.ItemTitle,
-        //    ItemDescription = createItemWithFilesDto.ItemDescription,
-        //    MinimumBid = createItemWithFilesDto.MinimumBid,
-        //    CurrentBid = createItemWithFilesDto.MinimumBid,
-        //    BidIncrement = createItemWithFilesDto.BidIncrement,
-        //    BidStartDate = createItemWithFilesDto.BidStartDate,
-        //    BidEndDate = createItemWithFilesDto.BidEndDate,
-        //    CategoryId = createItemWithFilesDto.CategoryId,
-        //    SellerId = sellerId,
-        //    BidStatus = "I",
-        //};
 
         // Sử dụng AutoMapper để ánh xạ từ DTO đến Entity
         var item = _mapper.Map<Item>(createItemWithFilesDto);
@@ -88,8 +77,12 @@ public class ItemServiceImpl : IItemService
                 _dbContext.Documents.Add(document);
             }
         }
+        _dbContext.SaveChanges();
 
-        return _dbContext.SaveChanges() > 0;
+        // Lên lịch cập nhật trạng thái đấu giá dựa trên BidStartDate và BidEndDate
+        ScheduleBidStatusUpdate(item);
+
+        return true;
     }
 
     public bool UpdateItem(int id, UpdateItemWithFilesDto updateItemWithFilesDto, int sellerId, List<string> imagePaths, List<string> documentPaths)
@@ -247,6 +240,120 @@ public class ItemServiceImpl : IItemService
         return itemDtos;
     }
 
+    // Phương thức lên lịch cập nhật trạng thái BidStatus
+    private void ScheduleBidStatusUpdate(Item item)
+    {
+        // Tính toán thời gian đến BidStartDate và BidEndDate
+        var currentTime = DateTime.Now;
+        var startDelay = item.BidStartDate - currentTime;
+        var endDelay = item.BidEndDate - currentTime;
+
+        // Lên lịch kích hoạt đấu giá (BidStatus = 'A')
+        if (startDelay.TotalMilliseconds > 0)
+        {
+            var timerStart = new Timer(_ => UpdateBidStatus(item.ItemId, "A"), null, startDelay, Timeout.InfiniteTimeSpan);
+        }
+
+        // Lên lịch kết thúc đấu giá (BidStatus = 'E')
+        if (endDelay.TotalMilliseconds > 0)
+        {
+            var timerEnd = new Timer(_ => UpdateBidStatus(item.ItemId, "E"), null, endDelay, Timeout.InfiniteTimeSpan);
+        }
+    }
+
+    // Phương thức cập nhật trạng thái đấu giá
+    private void UpdateBidStatus(int itemId, string newStatus)
+    {
+        // Tạo một scope mới để lấy DbContext từ DI
+        using (var scope = _serviceScopeFactory.CreateScope())
+        {
+            var dbContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+
+            var item = dbContext.Items
+                .Include(i => i.Bids) // Bao gồm các bids
+                .FirstOrDefault(i => i.ItemId == itemId);
+
+            if (item != null)
+            {
+                // Thay đổi trạng thái đấu giá
+                item.BidStatus = newStatus;
+                dbContext.SaveChanges();
+
+                // Nếu chuyển trạng thái từ "I" sang "A" (Đấu giá bắt đầu)
+                if (newStatus == "A")
+                {
+                    // Gửi thông báo cho người bán rằng đấu giá đã bắt đầu
+                    dbContext.Notifications.Add(new Notification
+                    {
+                        UserId = (int)item.SellerId,
+                        Message = $"Your auction for the item '{item.ItemTitle}' has started.",
+                        IsRead = false,
+                        NotificationDate = DateTime.Now
+                    });
+                    dbContext.SaveChanges();
+                }
+
+                // Nếu chuyển trạng thái từ "A" sang "E" (Đấu giá kết thúc)
+                if (newStatus == "E")
+                {
+                    // Tìm bid thắng cuộc nếu có
+                    var highestBid = item.Bids.OrderByDescending(b => b.BidAmount).FirstOrDefault();
+
+                    if (highestBid != null)
+                    {
+                        // Gửi thông báo cho người thắng đấu giá
+                        dbContext.Notifications.Add(new Notification
+                        {
+                            UserId = (int)highestBid.BidderId,
+                            Message = $"Congratulations! You won the auction for the item '{item.ItemTitle}'.",
+                            IsRead = false,
+                            NotificationDate = DateTime.Now
+                        });
+
+                        // Gửi thông báo cho tất cả những người thua cuộc
+                        var losingBidders = item.Bids
+                            .Where(b => b.BidderId != highestBid.BidderId)
+                            .Select(b => b.BidderId)
+                            .Distinct()
+                            .ToList();
+
+                        foreach (var loserId in losingBidders)
+                        {
+                            dbContext.Notifications.Add(new Notification
+                            {
+                                UserId = (int)loserId,
+                                Message = $"You lost the auction for the item '{item.ItemTitle}'.",
+                                IsRead = false,
+                                NotificationDate = DateTime.Now
+                            });
+                        }
+
+                        // Gửi thông báo cho người bán về kết quả đấu giá
+                        dbContext.Notifications.Add(new Notification
+                        {
+                            UserId = (int)item.SellerId,
+                            Message = $"The auction for your item '{item.ItemTitle}' has ended. The winner is '{highestBid.Bidder.Username}' with a bid of {highestBid.BidAmount}.",
+                            IsRead = false,
+                            NotificationDate = DateTime.Now
+                        });
+                    }
+                    else
+                    {
+                        // Nếu không có ai đấu giá, gửi thông báo cho người bán
+                        dbContext.Notifications.Add(new Notification
+                        {
+                            UserId = (int)item.SellerId,
+                            Message = $"The auction for your item '{item.ItemTitle}' has ended with no bids.",
+                            IsRead = false,
+                            NotificationDate = DateTime.Now
+                        });
+                    }
+
+                    dbContext.SaveChanges();
+                }
+            }
+        }
+    }
 
 
 }

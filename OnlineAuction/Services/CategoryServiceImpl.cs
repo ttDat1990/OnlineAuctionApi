@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using OnlineAuction.Dtos;
 using OnlineAuction.Models;
 
@@ -8,15 +7,13 @@ namespace OnlineAuction.Services;
 public class CategoryServiceImpl : ICategoryService
 {
     private readonly DatabaseContext _dbContext;
-    private readonly IMapper _mapper;
 
-    public CategoryServiceImpl(DatabaseContext dbContext, IMapper mapper)
+    public CategoryServiceImpl(DatabaseContext dbContext)
     {
         _dbContext = dbContext;
-        _mapper = mapper;
     }
 
-    public async Task<CategoryDto> CreateCategoryAsync(CreateCategoryDto createCategoryDto)
+    public async Task<bool> CreateCategoryAsync(CreateCategoryDto createCategoryDto)
     {
         var existingCategory = await _dbContext.Categories
                 .SingleOrDefaultAsync(c => c.CategoryName == createCategoryDto.CategoryName);
@@ -34,21 +31,29 @@ public class CategoryServiceImpl : ICategoryService
         _dbContext.Categories.Add(category);
         await _dbContext.SaveChangesAsync();
 
-        return _mapper.Map<CategoryDto>(category);
+        return true;
     }
 
     public async Task<IEnumerable<CategoryDto>> GetCategoriesAsync()
     {
-        var categories = await _dbContext.Categories.ToListAsync();
-        return _mapper.Map<IEnumerable<CategoryDto>>(categories);
+        var categories = await _dbContext.Categories
+        .Select(category => new CategoryDto
+        {
+            CategoryId = category.CategoryId,
+            CategoryName = category.CategoryName,
+            ItemCount = _dbContext.Items.Count(item => item.CategoryId == category.CategoryId)  // Count items for each category
+        })
+        .ToListAsync();
+
+        return categories;
     }
 
-    public async Task<CategoryDto?> UpdateCategoryAsync(int categoryId, CreateCategoryDto updateCategoryDto)
+    public async Task<bool> UpdateCategoryAsync(int categoryId, CreateCategoryDto updateCategoryDto)
     {
         var category = await _dbContext.Categories.FindAsync(categoryId);
         if (category == null)
         {
-            return null;
+            return false;
         }
 
         var existingCategory = await _dbContext.Categories
@@ -64,7 +69,7 @@ public class CategoryServiceImpl : ICategoryService
         _dbContext.Categories.Update(category);
         await _dbContext.SaveChangesAsync();
 
-        return _mapper.Map<CategoryDto>(category);
+        return true;
     }
 
     public async Task<bool> DeleteCategoryAsync(int categoryId)
