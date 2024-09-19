@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using OnlineAuction.Dtos;
 using OnlineAuction.Models;
+using System.Diagnostics;
 
 namespace OnlineAuction.Services;
 
@@ -247,6 +248,8 @@ public class ItemServiceImpl : IItemService
         var currentTime = DateTime.Now;
         var startDelay = item.BidStartDate - currentTime;
         var endDelay = item.BidEndDate - currentTime;
+        Debug.WriteLine("startDelay :" + startDelay);
+        Debug.WriteLine("endDelay :" + endDelay);
 
         // Lên lịch kích hoạt đấu giá (BidStatus = 'A')
         if (startDelay.TotalMilliseconds > 0)
@@ -282,11 +285,12 @@ public class ItemServiceImpl : IItemService
                 // Nếu chuyển trạng thái từ "I" sang "A" (Đấu giá bắt đầu)
                 if (newStatus == "A")
                 {
+                    Debug.WriteLine("Status T -> A");
                     // Gửi thông báo cho người bán rằng đấu giá đã bắt đầu
                     dbContext.Notifications.Add(new Notification
                     {
                         UserId = (int)item.SellerId,
-                        Message = $"Your auction for the item '{item.ItemTitle}' has started.",
+                        Message = $"Your auction for the item '{item.ItemTitle}'(id:{item.ItemId}) has started.",
                         IsRead = false,
                         NotificationDate = DateTime.Now
                     });
@@ -296,16 +300,18 @@ public class ItemServiceImpl : IItemService
                 // Nếu chuyển trạng thái từ "A" sang "E" (Đấu giá kết thúc)
                 if (newStatus == "E")
                 {
+                    Debug.WriteLine("Status A -> E : 1");
                     // Tìm bid thắng cuộc nếu có
                     var highestBid = item.Bids.OrderByDescending(b => b.BidAmount).FirstOrDefault();
 
                     if (highestBid != null)
                     {
+                        Debug.WriteLine("Status A -> E : 2");
                         // Gửi thông báo cho người thắng đấu giá
                         dbContext.Notifications.Add(new Notification
                         {
                             UserId = (int)highestBid.BidderId,
-                            Message = $"Congratulations! You won the auction for the item '{item.ItemTitle}'.",
+                            Message = $"Congratulations! You won the auction for the item '{item.ItemTitle}'(id:{item.ItemId}).",
                             IsRead = false,
                             NotificationDate = DateTime.Now
                         });
@@ -316,34 +322,37 @@ public class ItemServiceImpl : IItemService
                             .Select(b => b.BidderId)
                             .Distinct()
                             .ToList();
+                        Debug.WriteLine("Status A -> E : 3");
 
                         foreach (var loserId in losingBidders)
                         {
                             dbContext.Notifications.Add(new Notification
                             {
                                 UserId = (int)loserId,
-                                Message = $"You lost the auction for the item '{item.ItemTitle}'.",
+                                Message = $"You lost the auction for the item '{item.ItemTitle}'(id:{item.ItemId}).",
                                 IsRead = false,
                                 NotificationDate = DateTime.Now
                             });
                         }
 
                         // Gửi thông báo cho người bán về kết quả đấu giá
+                        Debug.WriteLine("Status A -> E : 4");
                         dbContext.Notifications.Add(new Notification
                         {
                             UserId = (int)item.SellerId,
-                            Message = $"The auction for your item '{item.ItemTitle}' has ended. The winner is '{highestBid.Bidder.Username}' with a bid of {highestBid.BidAmount}.",
+                            Message = $"The auction for your item '{item.ItemTitle}'(id:{item.ItemId}) has ended. The winner is '{highestBid.Bidder.Username}' with a bid of {highestBid.BidAmount}.",
                             IsRead = false,
                             NotificationDate = DateTime.Now
                         });
                     }
                     else
                     {
+                        Debug.WriteLine("Status A -> E : 5");
                         // Nếu không có ai đấu giá, gửi thông báo cho người bán
                         dbContext.Notifications.Add(new Notification
                         {
                             UserId = (int)item.SellerId,
-                            Message = $"The auction for your item '{item.ItemTitle}' has ended with no bids.",
+                            Message = $"The auction for your item '{item.ItemTitle}'(id:{item.ItemId}) has ended with no bids.",
                             IsRead = false,
                             NotificationDate = DateTime.Now
                         });

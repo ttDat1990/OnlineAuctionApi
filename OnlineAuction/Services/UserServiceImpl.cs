@@ -64,9 +64,24 @@ public class UserServiceImpl : IUserService
 
     public async Task<UserDto?> GetUserByUsernameAsync(string username)
     {
-        var user = await _dbContext.Users.SingleOrDefaultAsync(u => u.Username == username);
+        var user = await _dbContext.Users
+            .Include(u => u.RatingRatedByUsers)   // Chỉ cần Include quan hệ này
+            .SingleOrDefaultAsync(u => u.Username == username);
+
+        if (user != null)
+        {
+            // Nạp thêm dữ liệu cho các RatingRatedByUsers
+            foreach (var rating in user.RatingRatedByUsers)
+            {
+                await _dbContext.Entry(rating)
+                    .Reference(r => r.RatedByUser) // Chỉ cần nạp thêm RatedByUser nếu cần
+                    .LoadAsync();
+            }
+        }
+
         return user == null ? null : _mapper.Map<UserDto>(user);
     }
+
 
     public async Task<bool> BlockUserAsync(int userId)
     {

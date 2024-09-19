@@ -17,24 +17,24 @@ public class AuctionStatusUpdateService : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _logger.LogInformation("AuctionStatusUpdateService is starting.");
+        //_logger.LogInformation("AuctionStatusUpdateService is starting.");
 
-        while (!stoppingToken.IsCancellationRequested)
-        {
-            try
-            {
-                _logger.LogInformation("Checking for items that need to be activated or ended at {Time}.", DateTime.UtcNow);
-                await UpdateBidStatuses();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error occurred while updating bid statuses.");
-            }
+        //while (!stoppingToken.IsCancellationRequested)
+        //{
+        //    try
+        //    {
+        //        _logger.LogInformation("Checking for items that need to be activated or ended at {Time}.", DateTime.UtcNow);
+        //        await UpdateBidStatuses();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "Error occurred while updating bid statuses.");
+        //    }
 
-            await Task.Delay(_interval, stoppingToken);
-        }
+        //    await Task.Delay(_interval, stoppingToken);
+        //}
 
-        _logger.LogInformation("AuctionStatusUpdateService is stopping.");
+        //_logger.LogInformation("AuctionStatusUpdateService is stopping.");
     }
 
     private async Task UpdateBidStatuses()

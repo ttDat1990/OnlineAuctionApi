@@ -6,7 +6,13 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<User, UserDto>().ReverseMap();
+        CreateMap<User, UserDto>()
+            .ForMember(dest => dest.RatingRatedUsers, opt => opt.MapFrom(src => src.RatingRatedUsers))
+            .ReverseMap();
+        CreateMap<Rating, RatingDto>()
+            .ForMember(dest => dest.RatedByUserUsername, opt => opt.MapFrom(src => src.RatedByUser.Username))
+            .ReverseMap();
+
         CreateMap<CreateItemWithFilesDto, Item>()
             .ForMember(dest => dest.CurrentBid, opt => opt.MapFrom(src => src.MinimumBid))
             .ForMember(dest => dest.BidStatus, opt => opt.Ignore())
