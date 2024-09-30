@@ -48,7 +48,7 @@ public class ItemsController : Controller
 
             // Khai báo dung lượng tối đa và các đuôi file hợp lệ
             long maxFileSize = 2 * 1024 * 1024; // 2MB
-            List<string> allowedImageExtensions = new List<string> { ".png", ".gif", ".jpeg" };
+            List<string> allowedImageExtensions = new List<string> { ".png", ".gif", ".jpg" };
             List<string> allowedDocumentExtensions = new List<string> { ".doc", ".docx", ".xls", ".xlsx", ".txt" };
 
             // Lưu hình ảnh

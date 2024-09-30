@@ -28,4 +28,14 @@ public class RatingsController : Controller
             return BadRequest(ex.Message);
         }
     }
+
+    // GET /api/ratings/item/{itemId}
+    [HttpGet("item/{itemId}")]
+    public async Task<IActionResult> GetRatingsByItemId(int itemId)
+    {
+        var ratings = await _ratingService.GetRatingsByItemId(itemId);
+
+        // Nếu không có ratings, trả về một mảng rỗng
+        return Ok(ratings ?? new List<RatingDto>());
+    }
 }

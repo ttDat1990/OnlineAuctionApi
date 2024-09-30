@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using OnlineAuction.Dtos;
 using OnlineAuction.Models;
 
@@ -7,10 +8,12 @@ namespace OnlineAuction.Services;
 public class RatingService : IRatingService
 {
     private readonly DatabaseContext _dbContext;
+    private readonly IMapper _mapper;
 
-    public RatingService(DatabaseContext dbContext)
+    public RatingService(DatabaseContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
+        _mapper = mapper;
     }
 
     public async Task<bool> CreateRating(RatingDto ratingDto)
@@ -63,5 +66,14 @@ public class RatingService : IRatingService
         return await _dbContext.Ratings
             .Where(r => r.RatedUserId == userId)
             .ToListAsync();
+    }
+
+    public async Task<List<RatingDto>> GetRatingsByItemId(int itemId)
+    {
+        var ratings = await _dbContext.Ratings
+            .Where(r => r.ItemId == itemId)
+            .ToListAsync();
+
+        return _mapper.Map<List<RatingDto>>(ratings);
     }
 }

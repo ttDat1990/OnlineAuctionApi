@@ -7,4 +7,5 @@ public interface IRatingService
 {
     Task<bool> CreateRating(RatingDto ratingDto);
     Task<List<Rating>> GetUserRatings(int userId);
+    public Task<List<RatingDto>> GetRatingsByItemId(int itemId);
 }

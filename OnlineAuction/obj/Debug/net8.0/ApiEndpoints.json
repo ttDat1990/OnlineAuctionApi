@@ -329,6 +329,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "OnlineAuction.Controllers.RatingsController",
+    "Method": "GetRatingsByItemId",
+    "RelativePath": "api/Ratings/item/{itemId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "itemId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "OnlineAuction.Controllers.UsersController",
     "Method": "GetUserNotifications",
     "RelativePath": "api/Users/{userId}/notifications",

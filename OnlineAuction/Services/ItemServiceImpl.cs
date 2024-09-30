@@ -242,26 +242,60 @@ public class ItemServiceImpl : IItemService
     }
 
     // Phương thức lên lịch cập nhật trạng thái BidStatus
-    private void ScheduleBidStatusUpdate(Item item)
+    private async void ScheduleBidStatusUpdate(Item item)
     {
         // Tính toán thời gian đến BidStartDate và BidEndDate
         var currentTime = DateTime.Now;
         var startDelay = item.BidStartDate - currentTime;
-        var endDelay = item.BidEndDate - currentTime;
+        var endDelay = item.BidEndDate - item.BidStartDate;
         Debug.WriteLine("startDelay :" + startDelay);
         Debug.WriteLine("endDelay :" + endDelay);
+
+        // Theo dõi thời gian delay và ghi log liên tục
+        await TrackDelay(startDelay, "BidStartDate", item.ItemId);
 
         // Lên lịch kích hoạt đấu giá (BidStatus = 'A')
         if (startDelay.TotalMilliseconds > 0)
         {
-            var timerStart = new Timer(_ => UpdateBidStatus(item.ItemId, "A"), null, startDelay, Timeout.InfiniteTimeSpan);
+            UpdateBidStatus(item.ItemId, "A");
         }
+
+        // Theo dõi thời gian delay và ghi log liên tục cho BidEndDate
+        await TrackDelay(endDelay, "BidEndDate", item.ItemId);
 
         // Lên lịch kết thúc đấu giá (BidStatus = 'E')
         if (endDelay.TotalMilliseconds > 0)
         {
-            var timerEnd = new Timer(_ => UpdateBidStatus(item.ItemId, "E"), null, endDelay, Timeout.InfiniteTimeSpan);
+            UpdateBidStatus(item.ItemId, "E");
         }
+    }
+
+    private async Task TrackDelay(TimeSpan delay, string eventType, int itemId)
+    {
+        // Nếu thời gian delay nhỏ hơn hoặc bằng 0, không làm gì
+        if (delay.TotalMilliseconds <= 0)
+        {
+            return;
+        }
+
+        var remainingTime = delay;
+
+        while (remainingTime.TotalMilliseconds > 0)
+        {
+            Debug.WriteLine($"[{DateTime.Now}] Remaining time for {eventType} of item {itemId}: {remainingTime}");
+
+            // Chờ một khoảng thời gian nhỏ (ví dụ: 5s) trước khi ghi log lần tiếp theo
+            var interval = TimeSpan.FromSeconds(5);
+            var waitTime = remainingTime > interval ? interval : remainingTime;
+
+            // Chờ cho đến khi interval hoặc hết thời gian
+            await Task.Delay(waitTime);
+
+            // Tính toán lại thời gian còn lại
+            remainingTime -= waitTime;
+        }
+
+        Debug.WriteLine($"[{DateTime.Now}] Event {eventType} for item {itemId} is triggered.");
     }
 
     // Phương thức cập nhật trạng thái đấu giá
