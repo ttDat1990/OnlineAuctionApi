@@ -45,6 +45,10 @@
       "PackagePath": "staticwebassets\\documents\\2b143856d15f4e11a04bbc28f7d87095.txt"
     },
     {
+      "Id": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\documents\\3201e184a3844383a9da870dbbc3ff34.txt",
+      "PackagePath": "staticwebassets\\documents\\3201e184a3844383a9da870dbbc3ff34.txt"
+    },
+    {
       "Id": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\documents\\4c6b2c19cd2b497bb1979733e9076f51.txt",
       "PackagePath": "staticwebassets\\documents\\4c6b2c19cd2b497bb1979733e9076f51.txt"
     },
@@ -147,6 +151,10 @@
     {
       "Id": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\documents\\b5536a6437a8427599a3707d9aa1309b.txt",
       "PackagePath": "staticwebassets\\documents\\b5536a6437a8427599a3707d9aa1309b.txt"
+    },
+    {
+      "Id": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\documents\\bd1ac8636e3e42119282b2346a197937.txt",
+      "PackagePath": "staticwebassets\\documents\\bd1ac8636e3e42119282b2346a197937.txt"
     },
     {
       "Id": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\documents\\c09200a762cf4f2ea4bbc35affa0bee2.txt",
@@ -349,6 +357,10 @@
       "PackagePath": "staticwebassets\\images\\43a1081242544bd4bf1b6755c2f4abb3.jpg"
     },
     {
+      "Id": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\images\\46849b508ae54dadbb7ee502e82a5117.jpg",
+      "PackagePath": "staticwebassets\\images\\46849b508ae54dadbb7ee502e82a5117.jpg"
+    },
+    {
       "Id": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\images\\481c30aa6c5c4468a70ff262f2e5b65a.jpg",
       "PackagePath": "staticwebassets\\images\\481c30aa6c5c4468a70ff262f2e5b65a.jpg"
     },
@@ -401,8 +413,16 @@
       "PackagePath": "staticwebassets\\images\\6620d57bb72446be9c96e16d93fd5ffd.jpg"
     },
     {
+      "Id": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\images\\66b107b11e7f43869d5ad9ff1ce3a535.jpg",
+      "PackagePath": "staticwebassets\\images\\66b107b11e7f43869d5ad9ff1ce3a535.jpg"
+    },
+    {
       "Id": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\images\\67be09239bc74e0badeb4dd38d75a37e.jpg",
       "PackagePath": "staticwebassets\\images\\67be09239bc74e0badeb4dd38d75a37e.jpg"
+    },
+    {
+      "Id": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\images\\69243d8f87db427d972623e12ef84fce.jpg",
+      "PackagePath": "staticwebassets\\images\\69243d8f87db427d972623e12ef84fce.jpg"
     },
     {
       "Id": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\images\\69ec27e50bbd4cf8b0935521cfa726f0.jpg",
@@ -579,6 +599,10 @@
     {
       "Id": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\images\\d909133d1bd147669e801980b503ddee.jpg",
       "PackagePath": "staticwebassets\\images\\d909133d1bd147669e801980b503ddee.jpg"
+    },
+    {
+      "Id": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\images\\db6a753aec7b49a3b39dbf3ad57ea1b0.jpg",
+      "PackagePath": "staticwebassets\\images\\db6a753aec7b49a3b39dbf3ad57ea1b0.jpg"
     },
     {
       "Id": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\images\\df2836accdb6440699ecf83cbb7bb5e5.jpg",

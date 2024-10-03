@@ -9,4 +9,5 @@ public interface IUserService
     Task<object?> LoginAsync(string email, string password);
     Task<UserDto?> GetUserByUsernameAsync(string username);
     Task<bool> BlockUserAsync(int userId);
+    public Task<object?> LoginWithGoogleAsync(string idToken);
 }

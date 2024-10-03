@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Google.Apis.Auth;
 using Microsoft.EntityFrameworkCore;
 using OnlineAuction.Dtos;
 using OnlineAuction.Models;
@@ -116,5 +117,37 @@ public class UserServiceImpl : IUserService
         await _dbContext.SaveChangesAsync();
 
         return true;
+    }
+
+    public async Task<object?> LoginWithGoogleAsync(string idToken)
+    {
+        GoogleJsonWebSignature.Payload payload;
+
+        try
+        {
+            payload = await GoogleJsonWebSignature.ValidateAsync(idToken);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+
+        // Kiểm tra xem người dùng đã tồn tại hay chưa
+        var user = await _dbContext.Users.SingleOrDefaultAsync(u => u.Email == payload.Email);
+
+        // Nếu người dùng chưa tồn tại
+        if (user == null)
+        {
+            return "User not registered";  // Thông báo người dùng chưa đăng ký
+        }
+
+        var token = _jWTService.GenerateToken(user);
+        var userDto = _mapper.Map<UserDto>(user);
+
+        return new
+        {
+            Token = token,
+            User = userDto
+        };
     }
 }

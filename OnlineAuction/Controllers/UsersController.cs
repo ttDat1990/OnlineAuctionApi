@@ -100,4 +100,23 @@ public class UsersController : Controller
         var userRatings = await _ratingService.GetUserRatings(userId);
         return Ok(userRatings);
     }
+
+    [HttpPost("loginWithGoogle")]
+    public async Task<IActionResult> LoginWithGoogle([FromBody] GoogleLoginRequestDto googleLoginRequest)
+    {
+        var response = await _userService.LoginWithGoogleAsync(googleLoginRequest.IdToken);
+
+        // Kiểm tra nếu response trả về là thông báo người dùng chưa đăng ký
+        if (response is string && response.ToString() == "User not registered")
+        {
+            return BadRequest("User not registered. Please sign up first.");
+        }
+
+        if (response == null)
+        {
+            return Unauthorized("Google login failed.");
+        }
+
+        return Ok(response);
+    }
 }

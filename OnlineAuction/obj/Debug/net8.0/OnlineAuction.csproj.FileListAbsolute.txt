@@ -137,3 +137,9 @@ D:\Aptech\HK3\OnlineAuctionProject\OnlineAuction\OnlineAuction\obj\Debug\net8.0\
 D:\Aptech\HK3\OnlineAuctionProject\OnlineAuction\OnlineAuction\obj\Debug\net8.0\ref\OnlineAuction.dll
 D:\Aptech\HK3\OnlineAuctionProject\OnlineAuction\OnlineAuction\obj\Debug\net8.0\OnlineAuction.sourcelink.json
 D:\Aptech\HK3\OnlineAuctionProject\OnlineAuction\OnlineAuction\bin\Debug\net8.0\OnlineAuction.staticwebassets.runtime.json
+D:\Aptech\HK3\OnlineAuctionProject\OnlineAuction\OnlineAuction\bin\Debug\net8.0\Google.Apis.dll
+D:\Aptech\HK3\OnlineAuctionProject\OnlineAuction\OnlineAuction\bin\Debug\net8.0\Google.Apis.Auth.dll
+D:\Aptech\HK3\OnlineAuctionProject\OnlineAuction\OnlineAuction\bin\Debug\net8.0\Google.Apis.Core.dll
+D:\Aptech\HK3\OnlineAuctionProject\OnlineAuction\OnlineAuction\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\Aptech\HK3\OnlineAuctionProject\OnlineAuction\OnlineAuction\bin\Debug\net8.0\System.Management.dll
+D:\Aptech\HK3\OnlineAuctionProject\OnlineAuction\OnlineAuction\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Management.dll

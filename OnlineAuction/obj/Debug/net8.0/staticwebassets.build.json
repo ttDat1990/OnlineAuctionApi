@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "XcT/syBmevYIJ11DUF1MbK7lurhCMNYrWmfycRalau8=",
+  "Hash": "mPpWlq44LWmXpyg7HDhUlysCL0k8tl/Z4xhfImOGoTA=",
   "Source": "OnlineAuction",
   "BasePath": "_content/OnlineAuction",
   "Mode": "Default",
@@ -224,6 +224,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\documents\\2b143856d15f4e11a04bbc28f7d87095.txt"
+    },
+    {
+      "Identity": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\documents\\3201e184a3844383a9da870dbbc3ff34.txt",
+      "SourceId": "OnlineAuction",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\",
+      "BasePath": "_content/OnlineAuction",
+      "RelativePath": "documents/3201e184a3844383a9da870dbbc3ff34.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\documents\\3201e184a3844383a9da870dbbc3ff34.txt"
     },
     {
       "Identity": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\documents\\4c6b2c19cd2b497bb1979733e9076f51.txt",
@@ -718,6 +737,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\documents\\b5536a6437a8427599a3707d9aa1309b.txt"
+    },
+    {
+      "Identity": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\documents\\bd1ac8636e3e42119282b2346a197937.txt",
+      "SourceId": "OnlineAuction",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\",
+      "BasePath": "_content/OnlineAuction",
+      "RelativePath": "documents/bd1ac8636e3e42119282b2346a197937.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\documents\\bd1ac8636e3e42119282b2346a197937.txt"
     },
     {
       "Identity": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\documents\\c09200a762cf4f2ea4bbc35affa0bee2.txt",
@@ -1670,6 +1708,25 @@
       "OriginalItemSpec": "wwwroot\\images\\43a1081242544bd4bf1b6755c2f4abb3.jpg"
     },
     {
+      "Identity": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\images\\46849b508ae54dadbb7ee502e82a5117.jpg",
+      "SourceId": "OnlineAuction",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\",
+      "BasePath": "_content/OnlineAuction",
+      "RelativePath": "images/46849b508ae54dadbb7ee502e82a5117.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\46849b508ae54dadbb7ee502e82a5117.jpg"
+    },
+    {
       "Identity": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\images\\481c30aa6c5c4468a70ff262f2e5b65a.jpg",
       "SourceId": "OnlineAuction",
       "SourceType": "Discovered",
@@ -1917,6 +1974,25 @@
       "OriginalItemSpec": "wwwroot\\images\\6620d57bb72446be9c96e16d93fd5ffd.jpg"
     },
     {
+      "Identity": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\images\\66b107b11e7f43869d5ad9ff1ce3a535.jpg",
+      "SourceId": "OnlineAuction",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\",
+      "BasePath": "_content/OnlineAuction",
+      "RelativePath": "images/66b107b11e7f43869d5ad9ff1ce3a535.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\66b107b11e7f43869d5ad9ff1ce3a535.jpg"
+    },
+    {
       "Identity": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\images\\67be09239bc74e0badeb4dd38d75a37e.jpg",
       "SourceId": "OnlineAuction",
       "SourceType": "Discovered",
@@ -1934,6 +2010,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\67be09239bc74e0badeb4dd38d75a37e.jpg"
+    },
+    {
+      "Identity": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\images\\69243d8f87db427d972623e12ef84fce.jpg",
+      "SourceId": "OnlineAuction",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\",
+      "BasePath": "_content/OnlineAuction",
+      "RelativePath": "images/69243d8f87db427d972623e12ef84fce.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\69243d8f87db427d972623e12ef84fce.jpg"
     },
     {
       "Identity": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\images\\69ec27e50bbd4cf8b0935521cfa726f0.jpg",
@@ -2770,6 +2865,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\d909133d1bd147669e801980b503ddee.jpg"
+    },
+    {
+      "Identity": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\images\\db6a753aec7b49a3b39dbf3ad57ea1b0.jpg",
+      "SourceId": "OnlineAuction",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\",
+      "BasePath": "_content/OnlineAuction",
+      "RelativePath": "images/db6a753aec7b49a3b39dbf3ad57ea1b0.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\db6a753aec7b49a3b39dbf3ad57ea1b0.jpg"
     },
     {
       "Identity": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\images\\df2836accdb6440699ecf83cbb7bb5e5.jpg",

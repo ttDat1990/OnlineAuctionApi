@@ -23,3 +23,9 @@ public class RegisterUserDto
     public string Password { get; set; } = null!;
 }
 
+public class GoogleLoginRequestDto
+{
+    public string IdToken { get; set; } = null!;
+}
+
+

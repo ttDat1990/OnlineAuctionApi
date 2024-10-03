@@ -426,6 +426,22 @@
   },
   {
     "ContainingType": "OnlineAuction.Controllers.UsersController",
+    "Method": "LoginWithGoogle",
+    "RelativePath": "api/Users/loginWithGoogle",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "googleLoginRequest",
+        "Type": "OnlineAuction.Dtos.GoogleLoginRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineAuction.Controllers.UsersController",
     "Method": "Register",
     "RelativePath": "api/Users/register",
     "HttpMethod": "POST",
