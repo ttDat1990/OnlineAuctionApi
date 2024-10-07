@@ -33,6 +33,7 @@ public class ItemDto
     public int SellerId { get; set; }
     public string SellerUsername { get; set; }
     public int CategoryId { get; set; }
+    public int FavoritesCount { get; set; }
     public List<string> Images { get; set; } = new List<string>();
     public List<string> Documents { get; set; } = new List<string>();
 }

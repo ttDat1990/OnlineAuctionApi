@@ -20,8 +20,8 @@ public class NotificationServiceImpl : INotificationService
             {
                 NotificationId = n.NotificationId,
                 Message = n.Message,
-                IsRead = n.IsRead,
-                NotificationDate = n.NotificationDate
+                IsRead = (bool)n.IsRead,
+                NotificationDate = (DateTime)n.NotificationDate
             })
             .ToList();
 

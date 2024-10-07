@@ -33,6 +33,8 @@ public partial class Item
 
     public virtual ICollection<Document> Documents { get; set; } = new List<Document>();
 
+    public virtual ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
+
     public virtual ICollection<Image> Images { get; set; } = new List<Image>();
 
     public virtual ICollection<Rating> Ratings { get; set; } = new List<Rating>();

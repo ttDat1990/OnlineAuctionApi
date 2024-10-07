@@ -19,6 +19,8 @@ public partial class DatabaseContext : DbContext
 
     public virtual DbSet<Document> Documents { get; set; }
 
+    public virtual DbSet<Favorite> Favorites { get; set; }
+
     public virtual DbSet<Image> Images { get; set; }
 
     public virtual DbSet<Item> Items { get; set; }
@@ -33,7 +35,7 @@ public partial class DatabaseContext : DbContext
     {
         modelBuilder.Entity<Bid>(entity =>
         {
-            entity.HasKey(e => e.BidId).HasName("PK__Bids__4A733D92DAE303D2");
+            entity.HasKey(e => e.BidId).HasName("PK__Bids__4A733D9264E24FE4");
 
             entity.Property(e => e.BidAmount).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.BidDate)
@@ -51,16 +53,16 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Category>(entity =>
         {
-            entity.HasKey(e => e.CategoryId).HasName("PK__Categori__19093A0B8B3BD1C7");
+            entity.HasKey(e => e.CategoryId).HasName("PK__Categori__19093A0B49B19080");
 
-            entity.HasIndex(e => e.CategoryName, "UQ__Categori__8517B2E0CE171F91").IsUnique();
+            entity.HasIndex(e => e.CategoryName, "UQ__Categori__8517B2E0D925C14A").IsUnique();
 
             entity.Property(e => e.CategoryName).HasMaxLength(100);
         });
 
         modelBuilder.Entity<Document>(entity =>
         {
-            entity.HasKey(e => e.DocumentId).HasName("PK__Document__1ABEEF0F5E7AF332");
+            entity.HasKey(e => e.DocumentId).HasName("PK__Document__1ABEEF0F5C86E284");
 
             entity.Property(e => e.DocumentUrl).HasMaxLength(255);
 
@@ -69,9 +71,29 @@ public partial class DatabaseContext : DbContext
                 .HasConstraintName("FK__Documents__ItemI__4AB81AF0");
         });
 
+        modelBuilder.Entity<Favorite>(entity =>
+        {
+            entity.HasKey(e => e.FavoriteId).HasName("PK__Favorite__CE74FAD5213753F9");
+
+            entity.HasIndex(e => new { e.UserId, e.ItemId }, "UC_UserItem").IsUnique();
+
+            entity.Property(e => e.FavoriteDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.Status).HasDefaultValue(true);
+
+            entity.HasOne(d => d.Item).WithMany(p => p.Favorites)
+                .HasForeignKey(d => d.ItemId)
+                .HasConstraintName("FK__Favorites__ItemI__04E4BC85");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Favorites)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__Favorites__UserI__03F0984C");
+        });
+
         modelBuilder.Entity<Image>(entity =>
         {
-            entity.HasKey(e => e.ImageId).HasName("PK__Images__7516F70C3EBA31E9");
+            entity.HasKey(e => e.ImageId).HasName("PK__Images__7516F70C38BCEAAE");
 
             entity.Property(e => e.ImageUrl).HasMaxLength(255);
 
@@ -82,7 +104,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Item>(entity =>
         {
-            entity.HasKey(e => e.ItemId).HasName("PK__Items__727E838B16DA880A");
+            entity.HasKey(e => e.ItemId).HasName("PK__Items__727E838B4A628CB9");
 
             entity.Property(e => e.BidEndDate).HasColumnType("datetime");
             entity.Property(e => e.BidIncrement).HasColumnType("decimal(18, 2)");
@@ -90,7 +112,7 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.BidStatus)
                 .HasMaxLength(1)
                 .IsUnicode(false)
-                .HasDefaultValue("A")
+                .HasDefaultValue("I")
                 .IsFixedLength();
             entity.Property(e => e.CurrentBid).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.ItemDescription).HasMaxLength(4000);
@@ -108,7 +130,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Notification>(entity =>
         {
-            entity.HasKey(e => e.NotificationId).HasName("PK__Notifica__20CF2E12F5B16442");
+            entity.HasKey(e => e.NotificationId).HasName("PK__Notifica__20CF2E12A827D9ED");
 
             entity.Property(e => e.IsRead).HasDefaultValue(false);
             entity.Property(e => e.Message).HasMaxLength(1000);
@@ -123,7 +145,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Rating>(entity =>
         {
-            entity.HasKey(e => e.RatingId).HasName("PK__Ratings__FCCDF87C55091495");
+            entity.HasKey(e => e.RatingId).HasName("PK__Ratings__FCCDF87CEB04BF8F");
 
             entity.ToTable(tb => tb.HasTrigger("UpdateRatingScore"));
 
@@ -147,11 +169,11 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CC4C8D9CEFFE");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CC4C6A79FB3A");
 
-            entity.HasIndex(e => e.Username, "UQ__Users__536C85E424523A9F").IsUnique();
+            entity.HasIndex(e => e.Username, "UQ__Users__536C85E4BC820718").IsUnique();
 
-            entity.HasIndex(e => e.Email, "UQ__Users__A9D1053412169EE4").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__Users__A9D10534CC438CF3").IsUnique();
 
             entity.Property(e => e.CreatedDate)
                 .HasDefaultValueSql("(getdate())")

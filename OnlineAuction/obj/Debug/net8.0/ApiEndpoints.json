@@ -111,6 +111,59 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "OnlineAuction.Controllers.FavoritesController",
+    "Method": "IsFavourite",
+    "RelativePath": "api/Favorites/{userId}/isFavourite/{itemId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "itemId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineAuction.Controllers.FavoritesController",
+    "Method": "ToggleFavorite",
+    "RelativePath": "api/Favorites/toggle",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "toggleFavoriteDto",
+        "Type": "OnlineAuction.Dtos.ToggleFavoriteDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineAuction.Controllers.FavoritesController",
+    "Method": "GetUserFavorites",
+    "RelativePath": "api/Favorites/user/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "OnlineAuction.Controllers.ItemsController",
     "Method": "GetAllItems",
     "RelativePath": "api/Items",

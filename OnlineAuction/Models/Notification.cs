@@ -12,5 +12,5 @@ public partial class Notification
 
     public DateTime NotificationDate { get; set; }
 
-    public virtual User User { get; set; }
+    public virtual User? User { get; set; }
 }

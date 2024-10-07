@@ -23,6 +23,8 @@ public partial class User
 
     public virtual ICollection<Bid> Bids { get; set; } = new List<Bid>();
 
+    public virtual ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
+
     public virtual ICollection<Item> Items { get; set; } = new List<Item>();
 
     public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();

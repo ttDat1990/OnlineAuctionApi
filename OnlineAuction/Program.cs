@@ -40,6 +40,7 @@ builder.Services.AddScoped<IFileService, FileServiceImpl>();
 builder.Services.AddScoped<IBidService, BidServiceImpl>();
 builder.Services.AddScoped<INotificationService, NotificationServiceImpl>();
 builder.Services.AddScoped<IRatingService, RatingService>();
+builder.Services.AddScoped<IFavoriteService, FavoriteServiceImpl>();
 
 builder.Services.AddHostedService<AuctionStatusUpdateService>();
 builder.Services.AddSingleton<AuctionStatusUpdateService>();

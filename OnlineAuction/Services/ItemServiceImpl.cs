@@ -25,6 +25,7 @@ public class ItemServiceImpl : IItemService
         var item = _dbContext.Items
         .Include(i => i.Images)     // Bao gồm các hình ảnh liên quan
         .Include(i => i.Documents)  // Bao gồm các tài liệu liên quan
+        .Include(i => i.Favorites)
         .FirstOrDefault(i => i.ItemId == id);
 
         if (item == null)
@@ -32,7 +33,14 @@ public class ItemServiceImpl : IItemService
             return null; // Không tìm thấy sản phẩm
         }
 
+        // Tính số lượng người yêu thích sản phẩm
+        var favoritesCount = item.Favorites.Count(f => f.Status);
+
+        // Sử dụng AutoMapper để map từ entity sang DTO
         var itemDto = _mapper.Map<ItemDto>(item);
+
+        // Gán số lượng yêu thích vào DTO
+        itemDto.FavoritesCount = favoritesCount;
 
         return itemDto;
     }
@@ -164,14 +172,24 @@ public class ItemServiceImpl : IItemService
         // Lấy tất cả các sản phẩm theo CategoryId
         var items = _dbContext.Items
             .Where(i => i.CategoryId == categoryId)
-            .Include(i => i.Images)     // Bao gồm cả các hình ảnh liên quan
-            .Include(i => i.Documents)  // Bao gồm cả các tài liệu liên quan
+            .Include(i => i.Images)     // Bao gồm các hình ảnh liên quan
+            .Include(i => i.Documents)  // Bao gồm các tài liệu liên quan
+            .Include(i => i.Favorites)  // Bao gồm cả yêu thích
             .ToList();
 
+        // Map các đối tượng Item sang ItemDto
         var itemDtos = _mapper.Map<List<ItemDto>>(items);
+
+        // Cập nhật số lượng yêu thích cho mỗi ItemDto
+        foreach (var itemDto in itemDtos)
+        {
+            var item = items.First(i => i.ItemId == itemDto.ItemId);
+            itemDto.FavoritesCount = item.Favorites.Count(f => f.Status);
+        }
 
         return itemDtos;
     }
+
 
     public List<ItemDto> SearchItems(string query, int? categoryId = null, int? sellerId = null, string bidStatus = null, DateTime? bidStartDate = null, DateTime? bidEndDate = null)
     {
@@ -182,6 +200,7 @@ public class ItemServiceImpl : IItemService
         var itemsQuery = _dbContext.Items
             .Include(i => i.Images)     // Bao gồm các hình ảnh liên quan
             .Include(i => i.Documents)  // Bao gồm các tài liệu liên quan
+            .Include(i => i.Favorites)  // Bao gồm cả yêu thích
             .AsQueryable();
 
         // Nếu có từ khóa tìm kiếm, lọc theo tiêu đề hoặc mô tả sản phẩm
@@ -224,22 +243,41 @@ public class ItemServiceImpl : IItemService
         // Thực hiện truy vấn
         var items = itemsQuery.ToList();
 
-        // Map các đối tượng Item sang ItemDto, bao gồm hình ảnh và tài liệu
+        // Map các đối tượng Item sang ItemDto
         var itemDtos = _mapper.Map<List<ItemDto>>(items);
+
+        // Cập nhật số lượng yêu thích cho mỗi ItemDto
+        foreach (var itemDto in itemDtos)
+        {
+            var item = items.First(i => i.ItemId == itemDto.ItemId);
+            itemDto.FavoritesCount = item.Favorites.Count(f => f.Status);
+        }
 
         return itemDtos;
     }
+
 
     public List<ItemDto> GetAllItems()
     {
         var items = _dbContext.Items
-            .Include(i => i.Images)     // Include related images
-            .Include(i => i.Documents)  // Include related documents
+            .Include(i => i.Images)     // Bao gồm các hình ảnh liên quan
+            .Include(i => i.Documents)  // Bao gồm các tài liệu liên quan
+            .Include(i => i.Favorites)  // Bao gồm cả yêu thích
             .ToList();
 
+        // Map các đối tượng Item sang ItemDto
         var itemDtos = _mapper.Map<List<ItemDto>>(items);
+
+        // Cập nhật số lượng yêu thích cho mỗi ItemDto
+        foreach (var itemDto in itemDtos)
+        {
+            var item = items.First(i => i.ItemId == itemDto.ItemId);
+            itemDto.FavoritesCount = item.Favorites.Count(f => f.Status);
+        }
+
         return itemDtos;
     }
+
 
     // Phương thức lên lịch cập nhật trạng thái BidStatus
     private async void ScheduleBidStatusUpdate(Item item)
