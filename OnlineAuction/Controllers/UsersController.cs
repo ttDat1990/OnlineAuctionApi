@@ -119,4 +119,37 @@ public class UsersController : Controller
 
         return Ok(response);
     }
+
+    // POST: api/password/forgot
+    [HttpPost("forgot")]
+    public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto forgotPasswordDto)
+    {
+        // Call service to generate reset code and send it via email
+        var result = await _userService.GenerateResetCodeAsync(forgotPasswordDto.Email);
+        if (!result)
+        {
+            return BadRequest(new { message = "Invalid or non-existent email address." });
+        }
+
+        return Ok(new { message = "A reset code has been sent to your email." });
+    }
+
+    // POST: api/password/reset
+    [HttpPost("reset")]
+    public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto)
+    {
+        // Call service to validate reset code and update the password
+        var result = await _userService.ValidateResetCodeAsync(
+            resetPasswordDto.Email,
+            resetPasswordDto.ResetCode,
+            resetPasswordDto.NewPassword
+        );
+
+        if (!result)
+        {
+            return BadRequest(new { message = "Invalid or expired reset code." });
+        }
+
+        return Ok(new { message = "Your password has been successfully updated." });
+    }
 }

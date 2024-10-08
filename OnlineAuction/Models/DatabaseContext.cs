@@ -182,6 +182,8 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.IsBlocked).HasDefaultValue(false);
             entity.Property(e => e.Password).HasMaxLength(100);
             entity.Property(e => e.RatingScore).HasDefaultValue(0);
+            entity.Property(e => e.ResetCode).HasMaxLength(6);
+            entity.Property(e => e.ResetCodeExpiration).HasColumnType("datetime");
             entity.Property(e => e.Role).HasMaxLength(50);
             entity.Property(e => e.Username).HasMaxLength(100);
         });

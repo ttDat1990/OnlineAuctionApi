@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace OnlineAuction.Models;
+﻿namespace OnlineAuction.Models;
 
 public partial class User
 {
@@ -19,7 +16,11 @@ public partial class User
 
     public int? RatingScore { get; set; }
 
-    public bool? IsBlocked { get; set; }
+    public bool IsBlocked { get; set; }
+
+    public string? ResetCode { get; set; }
+
+    public DateTime? ResetCodeExpiration { get; set; }
 
     public virtual ICollection<Bid> Bids { get; set; } = new List<Bid>();
 

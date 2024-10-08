@@ -463,6 +463,22 @@
   },
   {
     "ContainingType": "OnlineAuction.Controllers.UsersController",
+    "Method": "ForgotPassword",
+    "RelativePath": "api/Users/forgot",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "forgotPasswordDto",
+        "Type": "OnlineAuction.Dtos.ForgotPasswordDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineAuction.Controllers.UsersController",
     "Method": "Login",
     "RelativePath": "api/Users/login",
     "HttpMethod": "POST",
@@ -520,6 +536,22 @@
       {
         "Name": "registerUserDto",
         "Type": "OnlineAuction.Dtos.RegisterUserDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineAuction.Controllers.UsersController",
+    "Method": "ResetPassword",
+    "RelativePath": "api/Users/reset",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "resetPasswordDto",
+        "Type": "OnlineAuction.Dtos.ResetPasswordDto",
         "IsRequired": true
       }
     ],

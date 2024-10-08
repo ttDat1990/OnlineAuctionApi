@@ -11,12 +11,14 @@ public class UserServiceImpl : IUserService
     private readonly DatabaseContext _dbContext;
     private readonly IMapper _mapper;
     private readonly IJWTService _jWTService;
+    private readonly IEmailService _emailService;
 
-    public UserServiceImpl(DatabaseContext dbContext, IMapper mapper, IJWTService jWTService)
+    public UserServiceImpl(DatabaseContext dbContext, IMapper mapper, IJWTService jWTService, IEmailService emailService)
     {
         _dbContext = dbContext;
         _mapper = mapper;
         _jWTService = jWTService;
+        _emailService = emailService;
     }
 
     public async Task<bool> RegisterAsync(RegisterUserDto registerUserDto)
@@ -150,4 +152,41 @@ public class UserServiceImpl : IUserService
             User = userDto
         };
     }
+
+    public async Task<bool> GenerateResetCodeAsync(string email)
+    {
+        var user = await _dbContext.Users.SingleOrDefaultAsync(u => u.Email == email);
+        if (user == null) return false;
+
+        // Tạo mã reset gồm 6 chữ số
+        var resetCode = new Random().Next(100000, 999999).ToString();
+
+        // Cập nhật mã reset và thời gian hết hạn
+        user.ResetCode = resetCode;
+        user.ResetCodeExpiration = DateTime.Now.AddMinutes(15); // Mã có hiệu lực trong 15 phút
+        await _dbContext.SaveChangesAsync();
+
+        // Gửi email chứa mã reset
+        await _emailService.SendEmailAsync(user.Email, "Password Reset Code", $"Your reset code is: {resetCode}");
+
+        return true;
+    }
+
+    public async Task<bool> ValidateResetCodeAsync(string email, string resetCode, string newPassword)
+    {
+        var user = await _dbContext.Users.SingleOrDefaultAsync(u => u.Email == email);
+        if (user == null || user.ResetCode != resetCode || user.ResetCodeExpiration < DateTime.Now)
+        {
+            return false; // Mã không hợp lệ hoặc đã hết hạn
+        }
+
+        // Cập nhật mật khẩu mới và xóa mã reset
+        user.Password = BCrypt.Net.BCrypt.HashPassword(newPassword);
+        user.ResetCode = null;
+        user.ResetCodeExpiration = null;
+        await _dbContext.SaveChangesAsync();
+
+        return true;
+    }
+
 }
