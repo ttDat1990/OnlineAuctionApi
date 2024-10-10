@@ -12,13 +12,15 @@ public class ItemServiceImpl : IItemService
     private readonly IMapper _mapper;
     private readonly IConfiguration _configuration;
     private readonly IServiceScopeFactory _serviceScopeFactory;
+    private readonly INotificationService _notificationService;
 
-    public ItemServiceImpl(DatabaseContext dbContext, IMapper mapper, IConfiguration configuration, IServiceScopeFactory serviceScopeFactory)
+    public ItemServiceImpl(DatabaseContext dbContext, IMapper mapper, IConfiguration configuration, IServiceScopeFactory serviceScopeFactory, INotificationService notificationService)
     {
         _dbContext = dbContext;
         _mapper = mapper;
         _configuration = configuration;
         _serviceScopeFactory = serviceScopeFactory;
+        _notificationService = notificationService;
     }
     public ItemDto? GetItemById(int id)
     {
@@ -166,6 +168,34 @@ public class ItemServiceImpl : IItemService
 
         return true;
     }
+
+    public async Task<bool> DeleteItem(int itemId, string description)
+    {
+        var item = await _dbContext.Items.FindAsync(itemId);
+        if (item == null) throw new Exception("Item does not exist.");
+
+        // Xóa các hình ảnh và tài liệu liên quan
+        var images = await _dbContext.Images.Where(i => i.ItemId == itemId).ToListAsync();
+        var documents = await _dbContext.Documents.Where(d => d.ItemId == itemId).ToListAsync();
+
+        _dbContext.Images.RemoveRange(images);
+        _dbContext.Documents.RemoveRange(documents);
+
+        // Xóa sản phẩm
+        _dbContext.Items.Remove(item);
+        await _dbContext.SaveChangesAsync();
+
+        var createNotificationDto = new CreateNotificationDto()
+        {
+            UserId = (int)item.SellerId,
+            Message = description,
+        };
+        _notificationService.CreateNotification(createNotificationDto);
+
+
+        return true;
+    }
+
 
     public List<ItemDto> GetItemsByCategory(int categoryId)
     {

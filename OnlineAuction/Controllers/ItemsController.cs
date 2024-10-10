@@ -153,6 +153,36 @@ public class ItemsController : Controller
         }
     }
 
+    [HttpDelete("deleteItem/{id}")]
+    //[Authorize(Roles = "Admin")]
+    public async Task<IActionResult> DeleteAsync(int id, string description)
+    {
+        try
+        {
+            // Tìm sản phẩm theo ID
+            var item = _itemService.GetItemById(id);
+            if (item == null)
+            {
+                return NotFound(new { Message = "Item does not exist." });
+            }
+
+            var isDeleted = await _itemService.DeleteItem(id, description);
+            if (isDeleted)
+            {
+                return Ok(new { Message = "Item deleted successfully." });
+            }
+            else
+            {
+                return BadRequest(new { Message = "Item deletion failed." });
+            }
+        }
+        catch (Exception ex)
+        {
+            var innerExceptionMessage = ex.InnerException?.Message ?? "No inner exception.";
+            return StatusCode(500, new { Message = "An error occurred: " + ex.Message, InnerException = innerExceptionMessage });
+        }
+    }
+
     [HttpGet("search")]
     public IActionResult SearchItems(
     [FromQuery] string? query,

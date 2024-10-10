@@ -263,6 +263,27 @@
   },
   {
     "ContainingType": "OnlineAuction.Controllers.ItemsController",
+    "Method": "DeleteAsync",
+    "RelativePath": "api/Items/deleteItem/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "description",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineAuction.Controllers.ItemsController",
     "Method": "SearchItems",
     "RelativePath": "api/Items/search",
     "HttpMethod": "GET",
