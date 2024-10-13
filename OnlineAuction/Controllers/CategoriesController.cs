@@ -81,4 +81,22 @@ public class CategoriesController : Controller
 
         return Ok(items);
     }
+
+    [HttpPost("merge")]
+    public async Task<IActionResult> MergeCategories([FromBody] MergeCategoriesDto mergeCategoriesDto)
+    {
+        try
+        {
+            bool result = await _categoryService.MergeCategoriesAsync(mergeCategoriesDto.TargetCategoryId, mergeCategoriesDto.SourceCategoryIds);
+            if (result)
+            {
+                return Ok(new { message = "Categories merged successfully." });
+            }
+            return BadRequest(new { message = "Failed to merge categories." });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
 }

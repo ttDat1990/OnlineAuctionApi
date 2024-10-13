@@ -47,12 +47,7 @@ public class UsersController : Controller
     public async Task<IActionResult> Login([FromBody] LoginRequestDto loginRequest)
     {
         var response = await _userService.LoginAsync(loginRequest.Username, loginRequest.Password);
-        if (response == null)
-        {
-            return Unauthorized("Username or password is incorrect.");
-        }
-
-        return Ok(response);
+        return Ok(response); // Trả về đối tượng thành công
     }
 
     [HttpGet("{username}")]
@@ -152,4 +147,53 @@ public class UsersController : Controller
 
         return Ok(new { message = "Your password has been successfully updated." });
     }
+
+    [Produces("application/json")]
+    [HttpGet("showAllUsers")]
+    public async Task<IActionResult> ShowAllUsers()
+    {
+        try
+        {
+            var users = await _userService.ShowAllUser();
+            return Ok(users);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [Produces("application/json")]
+    [HttpGet("findUser/{username}")]
+    public async Task<IActionResult> FindUser(string username)
+    {
+        try
+        {
+            var users = await _userService.FindUsers(username);
+            return Ok(users);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [Produces("application/json")]
+    [Consumes("application/json")]
+    [HttpPatch("StatusUser/{username}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> StatusUSer(string username)
+    {
+        try
+        {
+            var userC = await _userService.BlockAndUnBlock(username);
+            return Ok(userC);
+
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
 }

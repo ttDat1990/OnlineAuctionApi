@@ -6,6 +6,8 @@ public class UserDto
     public string Username { get; set; } = null!;
     public string Email { get; set; } = null!;
     public string Role { get; set; } = null!;
+    public DateTime CreatedDate { get; set; }
+    public bool IsBlocked { get; set; }
     public int RatingScore { get; set; }
     public List<RatingDto>? RatingRatedUsers { get; set; } = new List<RatingDto>();
 }
@@ -39,6 +41,15 @@ public class ResetPasswordDto
     public string ResetCode { get; set; }
     public string NewPassword { get; set; }
 }
+
+public class LoginResponseDto
+{
+    public bool Success { get; set; }
+    public string Message { get; set; }
+    public string Token { get; set; }
+    public UserDto User { get; set; }
+}
+
 
 
 

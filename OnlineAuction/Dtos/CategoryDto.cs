@@ -11,3 +11,10 @@ public class CreateCategoryDto
 {
     public string CategoryName { get; set; } = null!;
 }
+
+public class MergeCategoriesDto
+{
+    public int TargetCategoryId { get; set; }
+    public List<int> SourceCategoryIds { get; set; }
+}
+

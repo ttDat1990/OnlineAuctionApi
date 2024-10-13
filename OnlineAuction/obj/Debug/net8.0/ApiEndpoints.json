@@ -111,6 +111,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "OnlineAuction.Controllers.CategoriesController",
+    "Method": "MergeCategories",
+    "RelativePath": "api/Categories/merge",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "mergeCategoriesDto",
+        "Type": "OnlineAuction.Dtos.MergeCategoriesDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "OnlineAuction.Controllers.FavoritesController",
     "Method": "IsFavourite",
     "RelativePath": "api/Favorites/{userId}/isFavourite/{itemId}",
@@ -484,6 +500,22 @@
   },
   {
     "ContainingType": "OnlineAuction.Controllers.UsersController",
+    "Method": "FindUser",
+    "RelativePath": "api/Users/findUser/{username}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "username",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineAuction.Controllers.UsersController",
     "Method": "ForgotPassword",
     "RelativePath": "api/Users/forgot",
     "HttpMethod": "POST",
@@ -573,6 +605,32 @@
       {
         "Name": "resetPasswordDto",
         "Type": "OnlineAuction.Dtos.ResetPasswordDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineAuction.Controllers.UsersController",
+    "Method": "ShowAllUsers",
+    "RelativePath": "api/Users/showAllUsers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineAuction.Controllers.UsersController",
+    "Method": "StatusUSer",
+    "RelativePath": "api/Users/StatusUser/{username}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "username",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],

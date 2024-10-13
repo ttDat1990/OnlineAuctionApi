@@ -8,4 +8,5 @@ public interface ICategoryService
     Task<IEnumerable<CategoryDto>> GetCategoriesAsync();
     Task<bool> UpdateCategoryAsync(int categoryId, CreateCategoryDto updateCategoryDto);
     Task<bool> DeleteCategoryAsync(int categoryId);
+    public Task<bool> MergeCategoriesAsync(int targetCategoryId, List<int> sourceCategoryIds);
 }

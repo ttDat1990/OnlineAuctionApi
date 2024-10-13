@@ -46,24 +46,39 @@ public class UserServiceImpl : IUserService
         return true;
     }
 
-    public async Task<object?> LoginAsync(string username, string password)
+    public async Task<LoginResponseDto> LoginAsync(string username, string password)
     {
         var user = await _dbContext.Users.SingleOrDefaultAsync(u => u.Username == username);
+
         if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.Password))
         {
-            return null;
+            return new LoginResponseDto
+            {
+                Success = false,
+                Message = "Username or password is incorrect."
+            };
+        }
+
+        if (user.IsBlocked)
+        {
+            return new LoginResponseDto
+            {
+                Success = false,
+                Message = "Your account has been blocked. Please contact admin for assistance."
+            };
         }
 
         var token = _jWTService.GenerateToken(user);
-
         var userDto = _mapper.Map<UserDto>(user);
 
-        return new
+        return new LoginResponseDto
         {
+            Success = true,
             Token = token,
             User = userDto
         };
     }
+
 
     public async Task<UserDto?> GetUserByUsernameAsync(string username)
     {
@@ -187,6 +202,50 @@ public class UserServiceImpl : IUserService
         await _dbContext.SaveChangesAsync();
 
         return true;
+    }
+
+    public async Task<List<UserDto>> ShowAllUser()
+    {
+
+        //if (user == null)
+        //{
+        //    return null;
+        //}
+        var users = await _dbContext.Users.Where(x => x.Role == "NormalUser").ToListAsync();
+        return _mapper.Map<List<UserDto>>(users);
+
+    }
+
+    public async Task<List<UserDto>> FindUsers(string username)
+    {
+        return _mapper.Map<List<UserDto>>(await _dbContext.Users
+        .Where(x => x.Username.Contains(username) && x.Role == "NormalUser")
+        .ToListAsync());
+    }
+
+    public async Task<bool> BlockAndUnBlock(string username)
+    {
+        var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Username == username);
+        try
+        {
+            if (user.IsBlocked == true)
+            {
+                user.IsBlocked = false;
+                user.RatingScore = 0;
+                await _dbContext.SaveChangesAsync();
+            }
+            else
+            {
+                user.IsBlocked = true;
+                await _dbContext.SaveChangesAsync();
+            }
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+
     }
 
 }

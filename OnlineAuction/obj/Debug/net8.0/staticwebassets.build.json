@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "mPpWlq44LWmXpyg7HDhUlysCL0k8tl/Z4xhfImOGoTA=",
+  "Hash": "du/+iUoSURa+9JxQbOWbEGOJUTuAPxLqujMLejnKtNY=",
   "Source": "OnlineAuction",
   "BasePath": "_content/OnlineAuction",
   "Mode": "Default",
@@ -1079,6 +1079,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\documents\\f88840d9634f4494b15fe85aa818440c.txt"
+    },
+    {
+      "Identity": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\documents\\fd54aa07bf894130925e44445ec7ead4.txt",
+      "SourceId": "OnlineAuction",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\",
+      "BasePath": "_content/OnlineAuction",
+      "RelativePath": "documents/fd54aa07bf894130925e44445ec7ead4.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\documents\\fd54aa07bf894130925e44445ec7ead4.txt"
     },
     {
       "Identity": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\images\\01d1a05ca4cf4c26806459a1c34329f7.jpg",
@@ -2219,6 +2238,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\841b119969c34b9c9b62da0e59dbdc65.jpg"
+    },
+    {
+      "Identity": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\images\\85b070944d6d45229bd15d276f1be882.png",
+      "SourceId": "OnlineAuction",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\",
+      "BasePath": "_content/OnlineAuction",
+      "RelativePath": "images/85b070944d6d45229bd15d276f1be882.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\85b070944d6d45229bd15d276f1be882.png"
     },
     {
       "Identity": "D:\\Aptech\\HK3\\OnlineAuctionProject\\OnlineAuction\\OnlineAuction\\wwwroot\\images\\85b6b26d5f35489dad83180f04879eb2.jpg",
